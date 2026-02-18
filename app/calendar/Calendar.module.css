@@ -1,0 +1,591 @@
+/* app\calendar\Calendar.module.css */
+:root {
+  --primary: #3f9aae;
+  --primary-soft: #79c9c5;
+  --accent: #f96e5b;
+  --highlight: #ffe2af;
+
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --border-soft: #e2e8f0;
+
+  --text-main: #1e293b;
+  --text-sub: #64748b;
+
+  /* ===== EVENT TYPE COLORS (นิ่งตามประเภท) ===== */
+  --color-smo: #10b981;
+  --color-sd: #6366f1;
+  --color-psycho: #f96e5b;
+}
+
+/* Base Layout */
+.dashboardContainer {
+  display: grid;
+  grid-template-columns: 260px 1fr 300px;
+  height: 100vh;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background-color: var(--bg-main);
+  box-sizing: border-box;
+}
+
+.leftSidebar,
+.mainCalendar,
+.rightTimeline {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Calendar Grid Section */
+.calendarWrapper {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-soft);
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: var(--border-soft);
+  gap: 1px;
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.gridHeader {
+  background: #f1f5f9;
+  padding: 10px;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-sub);
+}
+
+.gridDay {
+  background: white;
+  min-height: 140px;
+  padding: 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.dayNum {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+/* Event Bars on Calendar */
+.eventStack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rowWrapper {
+  position: relative;
+  height: 22px;
+  width: 100%;
+}
+
+.eventBar {
+  position: absolute;
+  top: 0;
+  left: -9px;
+  right: -9px;
+  height: 100%;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.8;
+  z-index: 10;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.eventBar:hover {
+  z-index: 50;
+  opacity: 1;
+  transform: scaleY(1.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.isStart {
+  left: 0 !important;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.isEnd {
+  right: 0 !important;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/* Event Types Color Matching Root */
+/* Event Types Color Matching Root (FIXED) */
+.barSMO { background: var(--color-smo); }
+.barSD { background: var(--color-sd); }
+.barPSYCHO { background: var(--color-psycho); }
+
+.typeStarIcon.barSMO { background: var(--color-smo); }
+.typeStarIcon.barSD { background: var(--color-sd); }
+.typeStarIcon.barPSYCHO { background: var(--color-psycho); }
+
+
+
+/* Pop-ups & Tooltips */
+.miniPopup {
+  position: fixed;
+  z-index: 10000;
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-soft);
+  width: 240px;
+  animation: popupIn 0.2s ease-out;
+}
+
+.popupHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 6px;
+}
+
+.popupHeader strong { font-size: 0.9rem; color: var(--text-main); }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+
+/* Hover Pop-up for Day Details */
+.hoverPop {
+  position: absolute;
+  top: 0;
+  left: 105%;
+  width: 220px;
+  background: white;
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  padding: 12px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.gridDay:nth-child(7n) .hoverPop,
+.gridDay:nth-child(7n-1) .hoverPop {
+  left: auto;
+  right: 105%;
+}
+
+.popHeader {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 8px;
+  text-align: center;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 6px;
+}
+
+.popTimeGrid {
+  position: relative;
+  height: 350px;
+  background: var(--bg-main);
+  overflow-y: auto;
+  border-radius: 8px;
+  border: 1px solid #f1f5f9;
+}
+
+.hourRow {
+  height: 30px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.65rem;
+  color: #94a3b8;
+  padding-left: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.popEvent {
+  position: absolute;
+  left: 50px;
+  right: 6px;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Right Timeline Section */
+.rightTimeline {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-soft);
+}
+
+.timelineItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 15px 0;
+  border-bottom: 1px dashed var(--border-soft);
+}
+
+.timelineDateSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 100px;
+}
+
+.linkCircle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+}
+
+.typeStarIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.dateDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 45px;
+}
+
+.dayRange {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1;
+}
+
+.monthName {
+  font-size: 10px;
+  color: var(--text-sub);
+  text-transform: uppercase;
+}
+
+.eventTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0 0 2px 0;
+}
+
+.eventLocation,
+.eventTime {
+  font-size: 12px;
+  color: var(--text-sub);
+  margin: 0;
+}
+
+/* UI Elements & Sidebar */
+.userHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-card);
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-soft);
+}
+
+.sidebarCard {
+  background: var(--bg-card);
+  padding: 1.2rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-soft);
+}
+
+.monthPicker {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  color: var(--text-main);
+}
+
+.filterList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filterBtn {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  background: white;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-sub);
+  transition: all 0.2s ease;
+}
+
+.filterBtn:hover {
+  background: var(--bg-main);
+}
+
+.filterBtn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+.filterBtn.active {
+  background: var(--active-color, var(--primary));
+  border-color: var(--active-color, var(--primary));
+  color: white;
+}
+.btnCreate {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: opacity 0.2s;
+}
+
+.btnCreate:hover { opacity: 0.9; }
+
+.btnLogout {
+  padding: 10px;
+  background: #fee2e2;
+  color: var(--accent);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  margin-top: auto;
+}
+
+.toolbar h2 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.navBtns button {
+  align-items: center;
+  padding: 6px 12px;
+  margin-left: 5px;
+  border-radius: 6px;
+  border: 1px solid var(--border-soft);
+  background: white;
+  cursor: pointer;
+  color: var(--text-main);
+
+}
+
+.navBtns {
+  display: flex;
+  justify-content: center;   /* 👈 เอากลุ่มปุ่มไปไว้กลาง */
+  align-items: center;
+}
+/* Modals */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal {
+  background: var(--bg-card);
+  padding: 2rem;
+  border-radius: 20px; /* ปรับให้โค้งมนดูซอฟต์ลง */
+  width: 450px; /* เพิ่มความกว้างเล็กน้อยเพื่อให้ไม่อึดอัด */
+  max-width: 95vw;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1.5rem !important;
+  text-align: center; /* จัดหัวข้อให้อยู่กลางเพื่อความสวยงาม */
+}
+
+/* .modal {
+  background: var(--bg-card);
+  padding: 2rem;
+  border-radius: 24px;
+  width: 420px;
+  max-width: 90vw;
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.25);
+  animation: modalPop 0.25s ease-out;
+} */
+.createForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem; /* ระยะห่างระหว่างฟิลด์ */
+}
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%; /* บังคับให้ขยายเต็มพื้นที่ */
+}
+
+.formGroup label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-left: 2px;
+}
+
+.formGroup input,
+.formGroup select {
+  width: 100%; /* สำคัญมาก: เพื่อให้ input เต็ม container */
+  box-sizing: border-box; /* ป้องกัน padding ดันความกว้างเกิน */
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border-soft);
+  font-size: 0.95rem;
+  background: #fdfdfd;
+  transition: all 0.2s ease;
+  color: var(--text-main);
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(63, 154, 174, 0.1);
+}
+
+
+/* .formGroup label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-sub);
+} */
+
+/* .formGroup input,
+.formGroup select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #cbd5f5;
+  font-size: 0.85rem;
+  background: var(--bg-main);
+  transition: all 0.2s ease;
+} */
+
+/* .formGroup input:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(63, 154, 174, 0.15);
+} */
+
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr; /* ให้ช่องวันที่กว้างกว่าช่องเวลานิดนึง */
+  gap: 12px;
+  width: 100%;
+}
+
+.modalButtons {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-soft);
+}
+.modalButtons button[type="submit"] {
+  background: linear-gradient(135deg, var(--primary), var(--primary-soft));
+  color: white;
+}
+
+.modalButtons button[type="submit"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(63, 154, 174, 0.35);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes popupIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.closeBtn {
+  background: #f1f5f9 !important;
+  color: var(--text-sub) !important;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+
+.closeBtn:hover {
+  background: #e2e8f0 !important;
+}
+
+.btnCreate {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(63, 154, 174, 0.2);
+}
