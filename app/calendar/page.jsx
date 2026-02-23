@@ -8,6 +8,7 @@ export default function CalendarPage() {
     <div className="calendar-page">
       <CalendarClient />
     </div>
+    // return <CalendarClient />;
   );
 }
 

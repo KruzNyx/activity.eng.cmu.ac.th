@@ -169,19 +169,8 @@
 .popupHeader strong { font-size: 0.9rem; color: var(--text-main); }
 .dot { width: 10px; height: 10px; border-radius: 50%; }
 
-/* Hover Pop-up for Day Details */
 .hoverPop {
-  position: absolute;
-  top: 0;
-  left: 105%;
-  width: 220px;
-  background: white;
-  border: 1px solid var(--border-soft);
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  z-index: 999;
-  padding: 12px;
-  animation: fadeIn 0.2s ease-out;
+  pointer-events: none;
 }
 
 .gridDay:nth-child(7n) .hoverPop,

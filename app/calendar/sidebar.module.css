@@ -1,0 +1,216 @@
+.leftSidebar {
+  width: 230px;
+  background-color: #ffffff;
+  height: 90vh;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  overflow-y: auto;
+  border-right: 1px solid #f0f0f0;
+}
+
+.filterHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.filterIconBox {
+  background-color: #559197;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(85, 145, 151, 0.3);
+}
+
+.headerTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+  color: #334155;
+}
+
+.headerSubtitle {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* Selectors */
+.pickerRow {
+  display: flex;
+  gap: 8px;
+}
+
+.customSelect {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background-color: #fcfdfe;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+/* Sections */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.sectionHeader h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #334155;
+  margin: 0;
+  flex: 1;
+}
+
+.arrowUp { color: #94a3b8; }
+
+/* Filter Cards */
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filterCard {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background: white;
+  border: 1px solid #f8fafc;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.filterCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.activeCard {
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+}
+
+/* Icons within Cards */
+.iconCircle {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+
+.bg_smo { background-color: #ffe4e6; }
+.bg_sd { background-color: #f0fdf4; }
+.bg_psycho { background-color: #f5f3ff; }
+
+.avatarCircle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: #559197;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  font-weight: bold;
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+}
+
+.labelTitle {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #1e293b;
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dot { width: 6px; height: 6px; border-radius: 50%; }
+.dot_smo { background-color: #fb7185; }
+.dot_sd { background-color: #4ade80; }
+.dot_psycho { background-color: #a78bfa; }
+
+.statusText, .subLabel {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+/* Stats */
+.statsCard {
+  margin-top: auto;
+  background-color: #eff6f7;
+  padding: 16px;
+  border-radius: 20px;
+  border: 1px solid #e2eff0;
+}
+
+.statsHeader {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #64748b;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.statsRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+.statsValue {
+  font-weight: 700;
+  color: #559197;
+}
+
+.logoutLink {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+}
+
+.filterIconBox {
+  width: 48px;      /* ขนาดกรอบ */
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filterIcon {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
